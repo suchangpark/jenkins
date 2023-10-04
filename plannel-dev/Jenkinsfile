@@ -1,6 +1,10 @@
-stage('Running script file') {
-	steps {
-		sh "ls"
-		sh "./test.sh"
+pipeline {
+	agent any
+
+	stages('Running script file') {
+		steps {
+			sh "ls"
+			sh "./test.sh"
+		}
 	}
 }
