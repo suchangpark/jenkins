@@ -66,11 +66,14 @@ java --version
 cd $WORKING_DIR
 EXISTS_TAGS=$(git ls-remote --tags --refs $REPO_URL | awk '{print $2}' | cut -d/ -f3)
 
+echo "EXISTS_TAGS : $EXISTS_TAGS"
+echo "TAG : $TAG"
+
 if [[ -n $TAG && $EXISTS_TAGS == *$TAG* ]]; then
-  #echo "tag $TAG exists in saas-plannel repository"
+  echo "tag $TAG exists in saas-plannel repository"
   git clone --branch $TAG --depth 1 $REPO_URL $CLONE_DIR
 else
-  #echo "Tag $TAG does not exist in saas-plannel repository."
+  echo "Tag $TAG does not exist in saas-plannel repository."
   git clone $REPO_URL $CLONE_DIR
 fi
 
@@ -80,8 +83,11 @@ ls -al target/*.jar
 
 ssh-add -l
 
-ssh -o StrictHostKeyChecking=no ec2-user@$TARGET_SERVER "mkdir -p /tmp/deploy/ && rm -rf /tmp/deploy/*" &&
-    scp -o StrictHostKeyChecking=no target/*.jar ec2-user@$TARGET_SERVER:/tmp/deploy/
+echo "ssh -o StrictHostKeyChecking=no ec2-user@$TARGET_SERVER "mkdir -p /tmp/deploy/ && rm -rf /tmp/deploy/*" &&
+    scp -o StrictHostKeyChecking=no target/*.jar ec2-user@$TARGET_SERVER:/tmp/deploy/ "
+
+#ssh -o StrictHostKeyChecking=no ec2-user@$TARGET_SERVER "mkdir -p /tmp/deploy/ && rm -rf /tmp/deploy/*" &&
+#    scp -o StrictHostKeyChecking=no target/*.jar ec2-user@$TARGET_SERVER:/tmp/deploy/
 
 #ssh -o StrictHostKeyChecking=no ec2-user@$TARGET_SERVER '
 #    DEPLOY_PATH=/opt/zionex/saas-plannel
