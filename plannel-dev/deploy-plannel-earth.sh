@@ -83,7 +83,7 @@ ls -al target/*.jar
 
 ssh-add -l
 
-echo "ssh -o StrictHostKeyChecking=no ec2-user@$TARGET_SERVER "mkdir -p /tmp/deploy/ && rm -rf /tmp/deploy/*" &&
+echo "ssh -o StrictHostKeyChecking=no ec2-user@$TARGET_SERVER "mkdir -p /tmp/deploy/ \&\& rm -rf /tmp/deploy/*" \&\&
     scp -o StrictHostKeyChecking=no target/*.jar ec2-user@$TARGET_SERVER:/tmp/deploy/ "
 
 #ssh -o StrictHostKeyChecking=no ec2-user@$TARGET_SERVER "mkdir -p /tmp/deploy/ && rm -rf /tmp/deploy/*" &&
